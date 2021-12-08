@@ -11,7 +11,7 @@ if (! is_dir($path))
     die('Invalid Directory: ' . $path);
 }
 
-$main_config = $path . DIRECTORY_SEPARATOR . 'userdata/main';
+$main_config = $path . DIRECTORY_SEPARATOR . 'userdata' . DIRECTORY_SEPARATOR . 'main';
 
 $config = Yaml::parseFile($main_config);
 
@@ -19,7 +19,7 @@ $domains = array_unique(array_merge($config['addon_domains'], $config['sub_domai
 
 foreach ($domains as $domain)
 {
-    $domain_config = Yaml::parseFile(rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'userdata/' . $domain);
+    $domain_config = Yaml::parseFile($path . DIRECTORY_SEPARATOR . 'userdata' . DIRECTORY_SEPARATOR . $domain);
     $paths[]       = $path . DIRECTORY_SEPARATOR . 'homedir' . DIRECTORY_SEPARATOR . trim(str_replace($domain_config['homedir'], "", $domain_config['documentroot']), DIRECTORY_SEPARATOR);
 }
 
