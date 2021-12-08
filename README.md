@@ -11,7 +11,8 @@ Simply clone the repo to your ApisCP server and run the script against the backu
 git clone https://github.com/LithiumHosting/cpanel-backup-cleanser.git /root/cleanser
 chmod +x /root/cleanser/cleanse.sh /root/cleanser/parser.php
 
-/root/cleanser/cleanse.sh /path/to/cpbackup.tar.gz
+cd /root/cleanser
+./cleanse.sh /path/to/cpbackup.tar.gz
 ```
 Once it completes, if there's no errors, it will give you the path to the sanitized backup file in /var/www/html/<file>_sanitized.tar.gz
 Simply take that file name, append it to your server hostname and share it with ApisCP Support!
