@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-BASEPATH=$(pwd)
+BASEPATH=$(cd `dirname $0` && pwd)
 CPBACKUP=$1
 CPBACKUP_DIR=$(tar -tzf "$CPBACKUP" | head -1 | cut -f1 -d"/")
-DOMAINS=()
-PATHS=()
 tar -xzf "$CPBACKUP" -C /tmp/
 
 ## Remove unnecessary files
@@ -33,11 +31,13 @@ do
 done
 
 ## gzip
-tar -czf /var/www/html/"$CPBACKUP_DIR"_sanitized.tar.gz /tmp/"$CPBACKUP_DIR"
+cd /tmp
+tar -czf /var/www/html/"$CPBACKUP_DIR"_sanitized.tar.gz "$CPBACKUP_DIR"
 chmod 644 /var/www/html/"$CPBACKUP_DIR"_sanitized.tar.gz
 
 ## cleanup
 rm -rf /tmp/"$CPBACKUP_DIR"
 
 echo The backup file has been placed in var/www/html/"$CPBACKUP_DIR"_sanitized.tar.gz
+echo It\'s accessible via https://"$(hostname)"/"$CPBACKUP_DIR"_sanitized.tar.gz
 echo Be sure to delete the file once it has been received by ApisCP Support
